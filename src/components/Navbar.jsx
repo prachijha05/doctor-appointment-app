@@ -5,9 +5,7 @@ const Navbar = () => {
   const { user, logout, isAuthenticated } = useAuth();
   const location = useLocation();
 
-  const isActive = (path) => {
-    return location.pathname === path ? "active" : "";
-  };
+  const isActive = (path) => (location.pathname === path ? "active" : "");
 
   return (
     <nav className="navbar">
@@ -15,12 +13,14 @@ const Navbar = () => {
         <Link to="/" className="navbar-logo">
           🏥 HealthCare
         </Link>
+
         <ul className="navbar-menu">
           <li>
             <Link to="/" className={`navbar-link ${isActive("/")}`}>
               Home
             </Link>
           </li>
+
           <li>
             <Link
               to="/doctors"
@@ -29,6 +29,7 @@ const Navbar = () => {
               Doctors
             </Link>
           </li>
+
           {isAuthenticated && (
             <li>
               <Link
@@ -39,6 +40,17 @@ const Navbar = () => {
               </Link>
             </li>
           )}
+
+          {/* ← NEW: Contact link */}
+          <li>
+            <Link
+              to="/contact"
+              className={`navbar-link ${isActive("/contact")}`}
+            >
+              Contact
+            </Link>
+          </li>
+
           {!isAuthenticated ? (
             <>
               <li>

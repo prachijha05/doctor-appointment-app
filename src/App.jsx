@@ -8,6 +8,7 @@ import Doctors from './pages/Doctors';
 import BookAppointment from './pages/BookAppointment';
 import MyAppointments from './pages/MyAppointments';
 import AIChatBot from './components/AIChatBot';
+import Contact from './pages/Contact';
 
 // Admin imports
 import AdminLogin from './pages/admin/AdminLogin';
@@ -29,7 +30,8 @@ function App() {
           <Route path="/doctors" element={<><Navbar /><Doctors /><AIChatBot /></>} />
           <Route path="/book-appointment/:id" element={<><Navbar /><BookAppointment /></>} />
           <Route path="/appointments" element={<><Navbar /><MyAppointments /></>} />
-
+          <Route path="/contact" element={<><Navbar /><Contact /></>} />         
+          
           {/* Admin routes - no Navbar, own layout */}
           <Route path="/admin/login" element={<AdminLogin />} />
           <Route path="/admin/dashboard" element={

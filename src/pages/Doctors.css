@@ -1,0 +1,517 @@
+@import url('https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=DM+Sans:wght@300;400;500;600&display=swap');
+
+/* ══════════════════════════════════════════
+   HERO
+══════════════════════════════════════════ */
+.doctors-page {
+  font-family: 'DM Sans', sans-serif;
+  min-height: 100vh;
+  background: #F8FAFC;
+}
+
+.doctors-hero {
+  position: relative;
+  background: linear-gradient(135deg, #0F172A 0%, #1E3A8A 55%, #2563EB 100%);
+  padding: 4rem 2rem 0;
+  overflow: hidden;
+}
+
+.doctors-hero-bg {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+  background-size: 48px 48px;
+}
+
+.doctors-hero-content {
+  position: relative;
+  z-index: 1;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding-bottom: 2.5rem;
+}
+
+.doctors-hero-tag {
+  display: inline-block;
+  background: rgba(255,255,255,0.12);
+  border: 1px solid rgba(255,255,255,0.2);
+  color: #BAE6FD;
+  padding: 0.35rem 1.1rem;
+  border-radius: 100px;
+  font-size: 0.82rem;
+  font-weight: 500;
+  margin-bottom: 1.25rem;
+  letter-spacing: 0.02em;
+}
+
+.doctors-hero-title {
+  font-family: 'Sora', sans-serif;
+  font-size: clamp(2rem, 4.5vw, 3.5rem);
+  font-weight: 800;
+  color: #FFFFFF;
+  line-height: 1.1;
+  margin-bottom: 1rem;
+  letter-spacing: -0.02em;
+}
+
+.doctors-hero-accent {
+  background: linear-gradient(90deg, #38BDF8, #818CF8);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.doctors-hero-sub {
+  color: #94A3B8;
+  font-size: 1.05rem;
+  line-height: 1.6;
+  max-width: 520px;
+}
+
+/* Stats strip */
+.doctors-hero-stats {
+  position: relative;
+  z-index: 1;
+  max-width: 1100px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  background: rgba(255,255,255,0.07);
+  border-top: 1px solid rgba(255,255,255,0.1);
+  backdrop-filter: blur(8px);
+}
+
+.doctors-hero-stat {
+  padding: 1.25rem 1.5rem;
+  text-align: center;
+  border-right: 1px solid rgba(255,255,255,0.08);
+}
+.doctors-hero-stat:last-child { border-right: none; }
+
+.dhs-val {
+  font-family: 'Sora', sans-serif;
+  font-size: 1.6rem;
+  font-weight: 800;
+  color: #38BDF8;
+  line-height: 1;
+  margin-bottom: 0.3rem;
+}
+.dhs-label {
+  font-size: 0.78rem;
+  color: #94A3B8;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+@media (max-width: 640px) {
+  .doctors-hero-stats { grid-template-columns: repeat(2, 1fr); }
+}
+
+/* ══════════════════════════════════════════
+   SEARCH SECTION
+══════════════════════════════════════════ */
+.doctors-search-section {
+  background: white;
+  padding: 2rem;
+  border-bottom: 1px solid #E2E8F0;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  box-shadow: 0 2px 16px rgba(0,0,0,0.06);
+}
+
+.doctors-search-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.search-bar-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.search-icon {
+  position: absolute;
+  left: 1rem;
+  font-size: 1rem;
+  pointer-events: none;
+}
+
+.doctors-search-input {
+  width: 100%;
+  padding: 0.875rem 3rem 0.875rem 2.75rem;
+  border: 2px solid #E2E8F0;
+  border-radius: 12px;
+  font-size: 0.95rem;
+  font-family: 'DM Sans', sans-serif;
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  background: #F8FAFC;
+}
+.doctors-search-input:focus {
+  border-color: #2563EB;
+  box-shadow: 0 0 0 4px rgba(37,99,235,0.08);
+  background: white;
+}
+
+.search-clear {
+  position: absolute;
+  right: 1rem;
+  background: #E2E8F0;
+  border: none;
+  border-radius: 50%;
+  width: 24px; height: 24px;
+  cursor: pointer;
+  font-size: 0.75rem;
+  color: #64748B;
+  display: flex; align-items: center; justify-content: center;
+  transition: background 0.2s;
+}
+.search-clear:hover { background: #CBD5E1; }
+
+/* Filter chips */
+.filter-chips {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.filter-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.45rem 1rem;
+  border: 1.5px solid #E2E8F0;
+  border-radius: 100px;
+  background: white;
+  font-size: 0.82rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+  color: #374151;
+  font-family: 'DM Sans', sans-serif;
+  white-space: nowrap;
+}
+.filter-chip:hover {
+  border-color: #2563EB;
+  color: #2563EB;
+  background: #EFF6FF;
+}
+.filter-chip.active {
+  background: linear-gradient(135deg, #2563EB, #1D4ED8);
+  border-color: transparent;
+  color: white;
+  box-shadow: 0 4px 12px rgba(37,99,235,0.3);
+}
+
+/* ══════════════════════════════════════════
+   RESULTS
+══════════════════════════════════════════ */
+.doctors-results {
+  padding: 2.5rem 2rem 4rem;
+}
+.doctors-results-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.results-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.75rem;
+}
+
+.results-count {
+  font-size: 0.95rem;
+  color: #64748B;
+}
+.results-count strong {
+  color: #0F172A;
+  font-weight: 700;
+}
+.results-filter-tag {
+  color: #2563EB;
+  font-weight: 600;
+}
+
+.view-toggle {
+  display: flex;
+  gap: 0.25rem;
+  background: #F1F5F9;
+  padding: 0.25rem;
+  border-radius: 8px;
+}
+.view-btn {
+  padding: 0.4rem 0.75rem;
+  border: none;
+  background: transparent;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 1.1rem;
+  color: #64748B;
+  transition: all 0.2s;
+}
+.view-btn.active {
+  background: white;
+  color: #2563EB;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+}
+
+/* ── GRID VIEW ── */
+.doc-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+  gap: 1.5rem;
+}
+
+/* ── DOCTOR CARD ── */
+.doc-card {
+  background: white;
+  border-radius: 20px;
+  overflow: hidden;
+  border: 1.5px solid #E2E8F0;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+.doc-card:hover {
+  transform: translateY(-8px);
+  border-color: #2563EB;
+  box-shadow: 0 20px 48px rgba(37,99,235,0.14);
+}
+
+.doc-card-top {
+  background: linear-gradient(135deg, #1E3A8A, #2563EB, #0EA5E9);
+  height: 140px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.doc-avatar {
+  font-size: 4.5rem;
+  filter: drop-shadow(0 4px 12px rgba(0,0,0,0.2));
+  animation: gentleBob 4s ease-in-out infinite;
+}
+@keyframes gentleBob {
+  0%, 100% { transform: translateY(0);   }
+  50%       { transform: translateY(-6px); }
+}
+
+.doc-badge {
+  position: absolute;
+  top: 0.75rem; right: 0.75rem;
+  background: rgba(16,185,129,0.9);
+  color: white;
+  font-size: 0.72rem;
+  font-weight: 700;
+  padding: 0.25rem 0.625rem;
+  border-radius: 100px;
+  letter-spacing: 0.02em;
+}
+
+.doc-card-body {
+  padding: 1.5rem;
+}
+
+.doc-name {
+  font-family: 'Sora', sans-serif;
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #0F172A;
+  margin-bottom: 0.35rem;
+}
+
+.doc-specialty {
+  display: inline-block;
+  background: #EFF6FF;
+  color: #2563EB;
+  font-size: 0.8rem;
+  font-weight: 600;
+  padding: 0.25rem 0.75rem;
+  border-radius: 100px;
+  margin-bottom: 0.875rem;
+}
+
+.doc-rating {
+  color: #F59E0B;
+  font-size: 0.9rem;
+  margin-bottom: 1rem;
+  letter-spacing: 1px;
+}
+.doc-rating-num {
+  color: #374151;
+  font-weight: 700;
+  font-size: 0.875rem;
+  margin-left: 0.375rem;
+}
+
+.doc-meta {
+  display: flex;
+  gap: 1.25rem;
+  margin-bottom: 1rem;
+}
+.doc-meta-item {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.85rem;
+  color: #374151;
+  font-weight: 500;
+}
+.doc-meta-icon { font-size: 0.9rem; }
+
+.doc-avail {
+  margin-bottom: 1.25rem;
+}
+.doc-avail-label {
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: #64748B;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  display: block;
+  margin-bottom: 0.4rem;
+}
+.doc-avail-days {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+}
+.doc-day {
+  background: #F0FDF4;
+  color: #15803D;
+  font-size: 0.72rem;
+  font-weight: 600;
+  padding: 0.2rem 0.5rem;
+  border-radius: 6px;
+  border: 1px solid #BBF7D0;
+}
+
+.doc-book-btn {
+  width: 100%;
+  padding: 0.825rem;
+  background: linear-gradient(135deg, #2563EB, #1D4ED8);
+  color: white;
+  border: none;
+  border-radius: 12px;
+  font-weight: 700;
+  font-size: 0.95rem;
+  cursor: pointer;
+  font-family: 'DM Sans', sans-serif;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 14px rgba(37,99,235,0.3);
+}
+.doc-book-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(37,99,235,0.45);
+  background: linear-gradient(135deg, #1D4ED8, #1E40AF);
+}
+.doc-book-btn:active {
+  transform: translateY(0);
+}
+
+/* ── LIST VIEW ── */
+.doc-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.875rem;
+}
+
+.doc-list-row {
+  background: white;
+  border: 1.5px solid #E2E8F0;
+  border-radius: 16px;
+  padding: 1.25rem 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  transition: all 0.25s ease;
+}
+.doc-list-row:hover {
+  border-color: #2563EB;
+  box-shadow: 0 4px 20px rgba(37,99,235,0.1);
+  transform: translateX(4px);
+}
+
+.doc-list-avatar {
+  font-size: 2.75rem;
+  width: 68px; height: 68px;
+  background: linear-gradient(135deg, #EFF6FF, #DBEAFE);
+  border-radius: 16px;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+
+.doc-list-info { flex: 1; }
+.doc-list-name {
+  font-family: 'Sora', sans-serif;
+  font-weight: 700;
+  font-size: 1rem;
+  color: #0F172A;
+  margin-bottom: 0.2rem;
+}
+.doc-list-spec {
+  color: #2563EB;
+  font-size: 0.85rem;
+  font-weight: 600;
+  margin-bottom: 0.4rem;
+}
+.doc-list-meta {
+  display: flex;
+  gap: 1rem;
+  font-size: 0.82rem;
+  color: #64748B;
+}
+
+.doc-list-avail {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.3rem;
+  justify-content: flex-end;
+}
+
+/* ── EMPTY STATE ── */
+.doctors-empty {
+  text-align: center;
+  padding: 5rem 2rem;
+  background: white;
+  border-radius: 20px;
+  border: 1.5px dashed #CBD5E1;
+}
+.doctors-empty-icon {
+  font-size: 4rem;
+  margin-bottom: 1rem;
+}
+.doctors-empty h3 {
+  font-family: 'Sora', sans-serif;
+  font-size: 1.25rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  color: #0F172A;
+}
+.doctors-empty p { color: #64748B; }
+
+/* ── RESPONSIVE ── */
+@media (max-width: 768px) {
+  .doc-grid {
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  }
+  .doc-list-row {
+    flex-wrap: wrap;
+  }
+  .doc-list-avail {
+    justify-content: flex-start;
+  }
+  .doctors-hero-stats {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
