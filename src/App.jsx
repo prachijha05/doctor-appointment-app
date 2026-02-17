@@ -7,6 +7,7 @@ import Register from "./pages/Register";
 import Doctors from "./pages/Doctors";
 import BookAppointment from "./pages/BookAppointment";
 import MyAppointments from "./pages/MyAppointments";
+import AIChatBot from "./components/AIChatBot";
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
             <Route path="/book-appointment/:id" element={<BookAppointment />} />
             <Route path="/appointments" element={<MyAppointments />} />
           </Routes>
+          <AIChatBot />
         </div>
       </Router>
     </AuthProvider>

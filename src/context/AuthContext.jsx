@@ -1,77 +1,66 @@
-import { createContext, useContext, useState, useEffect } from "react";
-import API from "../services/api";
+import { createContext, useContext, useState, useEffect } from 'react';
 
 const AuthContext = createContext();
 
 export const useAuth = () => {
-  return useContext(AuthContext);
+  const context = useContext(AuthContext);
+  if (!context) {
+    throw new Error('useAuth must be used within an AuthProvider');
+  }
+  return context;
 };
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  // Load user on refresh
   useEffect(() => {
-    const storedUser = localStorage.getItem("user");
-
-    if (storedUser) {
-      setUser(JSON.parse(storedUser));
+    try {
+      const storedUser = localStorage.getItem('user');
+      if (storedUser) {
+        setUser(JSON.parse(storedUser));
+      }
+    } catch (e) {
+      localStorage.removeItem('user');
     }
-
     setLoading(false);
   }, []);
 
-  // ================= REGISTER =================
-  const register = async (data) => {
-    const res = await API.post("/auth/register", data);
-
-    setUser(res.data.user);
-
-    localStorage.setItem("user", JSON.stringify(res.data.user));
-    localStorage.setItem("token", res.data.token);
-
-    return res.data;
-  };
-
-  // ================= LOGIN =================
-  const login = async (data) => {
-    const res = await API.post("/auth/login", data);
-
-    setUser(res.data.user);
-
-    localStorage.setItem("user", JSON.stringify(res.data.user));
-    localStorage.setItem("token", res.data.token);
-
-    return res.data;
-  };
-
-  // ================= LOGOUT =================
-  const logout = async () => {
-    try {
-      await API.post("/auth/logout");
-    } catch (err) {
-      console.log(err);
+  const login = (userData) => {
+    setUser(userData);
+    localStorage.setItem('user', JSON.stringify(userData));
+    // Store token separately too
+    if (userData.token) {
+      localStorage.setItem('token', userData.token);
     }
-
-    setUser(null);
-
-    localStorage.removeItem("user");
-    localStorage.removeItem("token");
   };
 
-  const value = {
-    user,
-    login,
-    register,
-    logout,
-    loading,
-    isAuthenticated: !!user,
+  const register = (userData) => {
+    setUser(userData);
+    localStorage.setItem('user', JSON.stringify(userData));
+    if (userData.token) {
+      localStorage.setItem('token', userData.token);
+    }
+  };
+
+  const logout = () => {
+    setUser(null);
+    localStorage.removeItem('user');
+    localStorage.removeItem('token');
   };
 
   return (
-    <AuthContext.Provider value={value}>
-      {!loading && children}
+    <AuthContext.Provider
+      value={{
+        user,
+        login,
+        register,
+        logout,
+        isAuthenticated: !!user,
+        loading,
+      }}
+    >
+      {children}
     </AuthContext.Provider>
   );
 };
