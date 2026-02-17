@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 
@@ -7,38 +7,63 @@ const Login = () => {
     email: "",
     password: "",
   });
+
   const [errors, setErrors] = useState({});
   const [serverError, setServerError] = useState("");
   const [loading, setLoading] = useState(false);
-  const { login } = useAuth();
+
+  const { login, user } = useAuth();
   const navigate = useNavigate();
+
+  // ✅ Auto redirect if already logged in
+  useEffect(() => {
+    if (user) {
+      if (user.role === "admin") {
+        navigate("/admin/dashboard");
+      } else {
+        navigate("/doctors");
+      }
+    }
+  }, [user, navigate]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
+
+    setFormData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+
     if (errors[name]) {
-      setErrors((prev) => ({ ...prev, [name]: "" }));
+      setErrors((prev) => ({
+        ...prev,
+        [name]: "",
+      }));
     }
   };
 
   const validate = () => {
     const newErrors = {};
+
     if (!formData.email) {
       newErrors.email = "Email is required";
     } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
       newErrors.email = "Email is invalid";
     }
+
     if (!formData.password) {
       newErrors.password = "Password is required";
     } else if (formData.password.length < 6) {
       newErrors.password = "Password must be at least 6 characters";
     }
+
     return newErrors;
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setServerError("");
+
     const newErrors = validate();
 
     if (Object.keys(newErrors).length > 0) {
@@ -51,36 +76,34 @@ const Login = () => {
     try {
       const response = await fetch("http://localhost:5000/api/auth/login", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          "Content-Type": "application/json",
+        },
         credentials: "include",
-        body: JSON.stringify({
-          email: formData.email,
-          password: formData.password,
-        }),
+        body: JSON.stringify(formData),
       });
 
       const data = await response.json();
 
       if (data.success) {
-        // ✅ Save user WITH token
-        const userData = {
-          _id: data.user._id,
-          name: data.user.name,
-          email: data.user.email,
-          phone: data.user.phone,
-          role: data.user.role,
-          token: data.token, // ← KEY: save token here
+        const userWithToken = {
+          ...data.user,
+          token: data.token,
         };
 
-        login(userData);
-        navigate("/doctors");
+        login(userWithToken);
+
+        // ✅ Redirect based on role
+        if (data.user.role === "admin") {
+          navigate("/admin/dashboard");
+        } else {
+          navigate("/doctors");
+        }
       } else {
         setServerError(data.message || "Login failed");
       }
     } catch (err) {
-      setServerError(
-        "Cannot connect to server. Make sure backend is running on port 5000.",
-      );
+      setServerError("Cannot connect to server. Make sure backend is running.");
     } finally {
       setLoading(false);
     }
@@ -108,13 +131,12 @@ const Login = () => {
         )}
 
         <form onSubmit={handleSubmit}>
+          {/* Email */}
           <div className="form-group">
-            <label className="form-label" htmlFor="email">
-              Email Address
-            </label>
+            <label className="form-label">Email Address</label>
+
             <input
               type="email"
-              id="email"
               name="email"
               className="form-input"
               value={formData.email}
@@ -122,16 +144,16 @@ const Login = () => {
               placeholder="Enter your email"
               disabled={loading}
             />
+
             {errors.email && <p className="form-error">{errors.email}</p>}
           </div>
 
+          {/* Password */}
           <div className="form-group">
-            <label className="form-label" htmlFor="password">
-              Password
-            </label>
+            <label className="form-label">Password</label>
+
             <input
               type="password"
-              id="password"
               name="password"
               className="form-input"
               value={formData.password}
@@ -139,9 +161,11 @@ const Login = () => {
               placeholder="Enter your password"
               disabled={loading}
             />
+
             {errors.password && <p className="form-error">{errors.password}</p>}
           </div>
 
+          {/* Button */}
           <button
             type="submit"
             className="btn btn-primary"

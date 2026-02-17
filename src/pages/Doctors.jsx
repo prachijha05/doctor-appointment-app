@@ -1,67 +1,109 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import DoctorCard from "../components/DoctorCard";
-import { doctors, specialties } from "../utils/data";
+import { doctors } from "../utils/data";
 
 const Doctors = () => {
-  const [selectedSpecialty, setSelectedSpecialty] = useState("All Specialties");
   const [searchTerm, setSearchTerm] = useState("");
+  const [selectedSpecialty, setSpecialty] = useState("All");
+  const navigate = useNavigate();
 
-  const filteredDoctors = doctors.filter((doctor) => {
-    const matchesSpecialty =
-      selectedSpecialty === "All Specialties" ||
-      doctor.specialty === selectedSpecialty;
-    const matchesSearch =
-      doctor.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      doctor.specialty.toLowerCase().includes(searchTerm.toLowerCase());
-    return matchesSpecialty && matchesSearch;
+  const specialties = ["All", ...new Set(doctors.map((d) => d.specialty))];
+
+  const filtered = doctors.filter((doc) => {
+    const matchSearch =
+      doc.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      doc.specialty.toLowerCase().includes(searchTerm.toLowerCase());
+    const matchSpecialty =
+      selectedSpecialty === "All" || doc.specialty === selectedSpecialty;
+    return matchSearch && matchSpecialty;
   });
 
   return (
     <div className="container">
-      <h1 className="text-center mb-2">Find Your Doctor</h1>
+      <div style={{ padding: "2rem 0" }}>
+        {/* Header */}
+        <div style={{ marginBottom: "2rem" }}>
+          <h2 style={{ marginBottom: "0.5rem" }}>Find a Doctor</h2>
+          <p style={{ color: "#6b7280" }}>
+            Browse our network of verified healthcare professionals
+          </p>
+        </div>
 
-      <div className="filters">
-        <div className="filter-group">
-          <label className="form-label">Search</label>
+        {/* Search + Filter */}
+        <div
+          style={{
+            display: "flex",
+            gap: "1rem",
+            marginBottom: "1.5rem",
+            flexWrap: "wrap",
+          }}
+        >
           <input
             type="text"
             className="form-input"
             placeholder="Search by name or specialty..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
+            style={{ flex: 1, minWidth: "200px" }}
           />
-        </div>
-
-        <div className="filter-group">
-          <label className="form-label">Specialty</label>
           <select
-            className="form-select"
+            className="form-input"
             value={selectedSpecialty}
-            onChange={(e) => setSelectedSpecialty(e.target.value)}
+            onChange={(e) => setSpecialty(e.target.value)}
+            style={{ width: "200px" }}
           >
-            {specialties.map((specialty) => (
-              <option key={specialty} value={specialty}>
-                {specialty}
+            {specialties.map((s) => (
+              <option key={s} value={s}>
+                {s}
               </option>
             ))}
           </select>
         </div>
-      </div>
 
-      {filteredDoctors.length > 0 ? (
-        <div className="doctors-grid">
-          {filteredDoctors.map((doctor) => (
-            <DoctorCard key={doctor.id} doctor={doctor} />
-          ))}
-        </div>
-      ) : (
-        <div className="card text-center" style={{ padding: "3rem" }}>
-          <h3>No doctors found</h3>
-          <p style={{ color: "var(--text-light)" }}>
-            Try adjusting your search or filter criteria
-          </p>
-        </div>
-      )}
+        {/* Count */}
+        <p style={{ color: "#6b7280", marginBottom: "1.5rem" }}>
+          Showing {filtered.length} of {doctors.length} doctors
+        </p>
+
+        {/* Doctor Cards */}
+        {filtered.length === 0 ? (
+          <div
+            style={{
+              textAlign: "center",
+              padding: "3rem",
+              background: "white",
+              borderRadius: "12px",
+            }}
+          >
+            <div style={{ fontSize: "3rem", marginBottom: "1rem" }}>🔍</div>
+            <h3>No doctors found</h3>
+            <p style={{ color: "#6b7280" }}>
+              Try a different search or specialty filter
+            </p>
+            <button
+              className="btn btn-primary"
+              style={{ marginTop: "1rem" }}
+              onClick={() => {
+                setSearchTerm("");
+                setSpecialty("All");
+              }}
+            >
+              Clear Filters
+            </button>
+          </div>
+        ) : (
+          <div className="doctors-grid">
+            {filtered.map((doctor) => (
+              <DoctorCard
+                key={doctor.id}
+                doctor={doctor}
+                onBook={() => navigate(`/book-appointment/${doctor.id}`)}
+              />
+            ))}
+          </div>
+        )}
+      </div>
     </div>
   );
 };

@@ -4,7 +4,9 @@ import cors from "cors";
 import cookieParser from "cookie-parser";
 import connectDB from "./config/db.js";
 import authRoutes from "./routes/authRoutes.js";
-import aiRoutes from "./routes/aiRoutes.js"; // ← ADD THIS LINE
+import aiRoutes from "./routes/aiRoutes.js";
+import adminRoutes from "./routes/adminRoutes.js";
+import appointmentRoutes from "./routes/appointmentRoutes.js"; // ← ADD
 
 dotenv.config();
 connectDB();
@@ -21,9 +23,10 @@ app.use(
   }),
 );
 
-// Routes
 app.use("/api/auth", authRoutes);
-app.use("/api/ai", aiRoutes); // ← ADD THIS LINE
+app.use("/api/ai", aiRoutes);
+app.use("/api/admin", adminRoutes);
+app.use("/api/appointments", appointmentRoutes); // ← ADD
 
 app.get("/", (req, res) => {
   res.json({ message: "Doctor Appointment API is running..." });
@@ -31,16 +34,12 @@ app.get("/", (req, res) => {
 
 app.use((err, req, res, next) => {
   console.error(err.stack);
-  res.status(500).json({
-    success: false,
-    message: "Something went wrong!",
-    error: err.message,
-  });
+  res.status(500).json({ success: false, message: "Something went wrong!" });
 });
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
   console.log(`🚀 Server running on port ${PORT}`);
-  console.log(`🤖 AI routes ready at /api/ai/chat`);
+  console.log(`📅 Appointment routes ready at /api/appointments`);
   console.log(`📍 Environment: ${process.env.NODE_ENV}`);
 });
