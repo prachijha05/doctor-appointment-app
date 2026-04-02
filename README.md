@@ -258,16 +258,22 @@ User sees recommendation
 ## 📸 Screenshots
 
 ### Home Page
-![Home Page](https://via.placeholder.com/800x400?text=Home+Page+Screenshot)
+![Home Page](screenshots/home.png)
 
-### Doctors Page
-![Doctors Page](https://via.placeholder.com/800x400?text=Doctors+Page+Screenshot)
+### Doctors Listing
+![Doctors Page](screenshots/doctors.png)
+
+### USER
+![Login/Register Page](screenshots/Login.png)
+
+### My Appointments
+![My Appointments](screenshots/appointments.png)
 
 ### Admin Dashboard
-![Admin Dashboard](https://via.placeholder.com/800x400?text=Admin+Dashboard+Screenshot)
+![Admin Dashboard](screenshots/admin-dashboard.png)
 
 ### AI Chatbot
-![AI Chatbot](https://via.placeholder.com/800x400?text=AI+Chatbot+Screenshot)
+![AI Chatbot](screenshots/ai-chatbot.png)
 
 ---
 
