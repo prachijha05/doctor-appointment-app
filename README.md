@@ -301,9 +301,9 @@ User sees recommendation
 ## 📧 Contact
 
 **Prachi Jha**
-- GitHub: [@prachijha05](https://github.com/prachijha05)
+- GitHub: [prachijha](https://github.com/prachijha05)
 - Email: prachijha@gmail.com
-- LinkedIn: [Your LinkedIn](https://www.linkedin.com/in/prachi-jha-b084b828b/)
+- LinkedIn: [LinkedIn](https://www.linkedin.com/in/prachi-jha-b084b828b/)
 
 ---
 
@@ -312,5 +312,3 @@ User sees recommendation
 Give a ⭐ if this project helped you!
 
 ---
-
-**Made with ❤️ by the HealthCare+ Team**
