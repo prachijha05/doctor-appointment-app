@@ -2,8 +2,6 @@
 
 A full-stack healthcare appointment booking platform built with the MERN stack, featuring secure authentication, AI-powered symptom analysis, and comprehensive admin controls.
 
-![Project Banner](https://via.placeholder.com/1200x400/2563EB/FFFFFF?text=Doctor+Appointment+System)
-
 ## 🌟 Features
 
 ### For Patients
