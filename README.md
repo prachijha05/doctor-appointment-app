@@ -296,8 +296,8 @@ User sees recommendation
 
 **Prachi Jha**
 - GitHub: [@prachijha05](https://github.com/prachijha05)
-- Email: your.email@example.com
-- LinkedIn: [Your LinkedIn](https://linkedin.com/in/yourprofile)
+- Email: prachijha@gmail.com
+- LinkedIn: [Your LinkedIn](https://www.linkedin.com/in/prachi-jha-b084b828b/)
 
 ---
 
